@@ -35,7 +35,7 @@
 #include "G4ParticleGun.hh"
 #include "G4SystemOfUnits.hh"
 #include "globals.hh"
-#include "G4AnalysisManager.hh"
+//#include "G4AnalysisManager.hh"
 
 class G4ParticleGun;
 class G4Event;

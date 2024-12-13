@@ -121,9 +121,11 @@ int main(int argc,char** argv)
   // Construct the default run manager
   //
 #ifdef G4MULTITHREADED
-  G4MTRunManager * runManager = new G4MTRunManager;
+  //G4MTRunManager * runManager = new G4MTRunManager;
+  G4RunManager * runManager = new G4RunManager;
   if ( nThreads > 0 ) {
-    runManager->SetNumberOfThreads(nThreads);
+    G4cout<<"multithreading"<<G4endl;	  
+    //runManager->SetNumberOfThreads(nThreads);
   }
 #else
   G4RunManager * runManager = new G4RunManager;
