@@ -1,0 +1,9 @@
+/run/initialize
+/tracking/verbose 0
+
+/random/setSeeds 1003 434596
+
+/process/list
+/run/printProgress 1000
+/analysis/setFileName DTFilter_test
+/run/beamOn 100000

@@ -1,0 +1,27 @@
+
+/run/initialize
+/tracking/verbose 0
+
+/random/setSeeds 3250 8967
+
+/process/list
+/run/printProgress 10000
+
+# Set the file name
+/filename/setFilename Ge_One_BackingDetector_14_350.root
+
+#/gps/particle neutron
+#/gps/energy 2.5 MeV
+#/gps/position -13.879 -39.779 269.514 cm
+#/gps/ang/type iso
+
+/IronFilter/prim/SetCosThetaMax -0.99999
+
+#/analysis/setFileName  EJ254_Capture_comp_30
+#/analysis/setFileName EJ426_7_MeV_crosstalk_two_Detectors_borated
+#/analysis/setFileName EJ254_capture_5_3Pb_2keV
+#/analysis/setFileName EJ426_efficency_10_MeV
+#/analysis/setFileName EJ426_frontpoly_acrylic_backpoly_2keV_threeEight_fivefourthquarter_threeEight
+#/analysis/setFileName Sheilding_40_polbor10PC_20_Pb
+/run/beamOn 1000000
+#/run/beamOn 10000000

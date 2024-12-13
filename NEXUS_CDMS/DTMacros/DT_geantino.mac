@@ -1,0 +1,34 @@
+/IronFilter/det/setFilterCellSpacing 76.0 cm
+/IronFilter/det/setPolyHeight 5.0 cm #30 cm
+/IronFilter/det/setMultiplierLeadHeightFront 15.0 cm
+/IronFilter/det/setModeratorAluminumHeight 30 cm
+/IronFilter/det/setModeratorTitaniumHeight 5.0 cm # to get the DT position add the number till here
+/IronFilter/det/setMultiplierLeadHeightRear 20.0 cm
+/IronFilter/det/setMultiplierLeadRadius 20.0 cm
+/IronFilter/det/setModeratorAluminumRadius 15.0 cm
+/IronFilter/det/setModeratorTitaniumRadius 15.0 cm
+/IronFilter/det/setTestX 0 m
+/IronFilter/det/setTestY 0 m
+/IronFilter/det/setTestZ 0 m
+
+/run/initialize
+/tracking/verbose 1
+
+/random/setSeeds 1233 4388
+
+/process/list
+
+# Set the file name
+/filename/setFilename testgeantino.root
+
+/gps/particle geantino
+#/gps/position 0 0 100.0 cm
+#/gps/position 35 0 -50 cm
+#/gps/position 0 0 0 cm
+#/gps/direction 0 1 0
+/gps/position 0 131 0 cm #0 156 0
+/gps/direction 0 -1 0
+
+
+#/analysis/setFileName testgeantino
+/run/beamOn 1

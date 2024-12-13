@@ -1,0 +1,51 @@
+/run/initialize
+/tracking/verbose 0
+
+#/control/getEnv a
+#/control/getEnv b
+
+#/random/setSeeds {a} {b}
+#/random/setSeeds 3250 8967
+
+/process/list
+/run/printProgress 200
+
+# Set the file name
+#/filename/setFilename HeliumCellIronFilterPbFLuFe_15_20_40_BackingDetector_6det_2types_30_20_0.root
+/filename/setFilename HeliumCellScandiumFilter_Geom36_0.root
+
+#/gps/particle neutron
+#/gps/ene/type Lin
+#/gps/ene/min 0.02 MeV
+#/gps/ene/max 0.03 MeV
+#/gps/ene/gradient 0.0
+#/gps/ene/intercept 1.0
+#/gps/energy 14.1 MeV
+#/gps/energy 0.002 MeV
+#/gps/position 0 0 -1.5 cm
+#/gps/position 0 0 50.49 cm
+#/gps/position 0 0 -50 cm
+#/gps/position 0 0 0 cm
+
+#/gps/pos/type Plane
+#/gps/pos/shape Annulus
+#/gps/pos/centre 0 0 -50 cm
+#/gps/direction 0 0 1
+#/gps/pos/radius 40 cm
+#/gps/pos/inner_radius 30 cm
+
+#/gps/number 10000
+#/gps/ang/mintheta 0 deg
+#/gps/ang/maxtheta 45 deg
+#/gps/ang/type iso
+
+
+#/analysis/setFileName  EJ254_Capture_comp_30
+#/analysis/setFileName EJ426_7_MeV_crosstalk_two_Detectors_borated
+#/analysis/setFileName EJ254_capture_5_3Pb_2keV
+#/analysis/setFileName EJ426_efficency_10_MeV
+#/analysis/setFileName EJ426_frontpoly_acrylic_backpoly_2keV_threeEight_fivefourthquarter_threeEight
+#/analysis/setFileName Sheilding_40_polbor10PC_20_Pb
+#/run/beamOn 100000
+#/run/beamOn 857 #iron_filter
+/run/beamOn 128096 #scandium_filter

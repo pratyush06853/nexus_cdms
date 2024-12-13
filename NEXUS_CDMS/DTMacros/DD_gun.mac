@@ -1,0 +1,38 @@
+/run/initialize
+/tracking/verbose 1
+
+/random/setSeeds 32250 8334967
+
+/process/list
+/run/printProgress 10000
+
+# Set the file name
+/filename/setFilename test.root
+
+/gps/particle geantino
+#/gps/ene/type Lin
+#/gps/ene/min 0.00002 MeV
+#/gps/ene/max 0.0002 MeV
+#/gps/ene/gradient 0.0
+#/gps/ene/intercept 1.0
+#/gps/energy 2.5 MeV
+##/gps/energy 0.0002 MeV
+##/gps/position 0 0 -1.5 cm
+##/gps/position 0 0 50.49 cm
+##/gps/position 0 76 0 cm
+/gps/position -13.879 -39.779 269.514 cm
+/gps/direction 0 0 -1 
+
+#/gps/pos/type Plane
+#/gps/pos/shape Annulus
+#/gps/pos/shape Circle
+#/gps/pos/centre 0 76 0 cm
+#/gps/direction 0 -1 0
+#/gps/pos/radius 5 mm
+##/gps/pos/inner_radius 30 cm
+
+##/gps/number 10000
+##/gps/ang/mintheta 0 deg
+##/gps/ang/maxtheta 45 deg
+##/gps/ang/type iso
+/run/beamOn 1
