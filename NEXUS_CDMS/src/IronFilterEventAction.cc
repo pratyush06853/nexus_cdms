@@ -83,11 +83,11 @@ void IronFilterEventAction::BeginOfEventAction(const G4Event*){
             data_tree->Branch("stepID", &stepID, "stepID/I");
 
             // information about its idenity
-            data_tree->Branch("particle", particle_name, "particle[16]/C");
+            data_tree->Branch("particle", particle_name, "particle[70]/C");
             data_tree->Branch("parentID", &parentID, "parentID/I");
 
             // geometric information
-            data_tree->Branch("volume", volume_name, "volume[25]/C");
+            data_tree->Branch("volume", volume_name, "volume[70]/C");
             data_tree->Branch("copy_n", &volume_copy_number, "copy_n/I");
             data_tree->Branch("x", &x, "x/D");
             data_tree->Branch("y", &y, "y/D");
@@ -101,7 +101,7 @@ void IronFilterEventAction::BeginOfEventAction(const G4Event*){
             data_tree->Branch("Eki", &Eki, "Eki/D"); // initial kinetic energy before the step
             data_tree->Branch("Ekf", &Ekf, "Ekf/D"); // final kinetic energy after the step
             data_tree->Branch("Edep", &edep, "Edep/D"); // energy deposit calculated by Geant4
-            data_tree->Branch("process", process_name, "process[16]/C");
+            data_tree->Branch("process", process_name, "process[70]/C");
         }
     }
     //At the beginning of the event, insert a special flag.
@@ -234,7 +234,7 @@ void IronFilterEventAction::EndOfEventAction(const G4Event* event){
               }
 
               if( ((  (stepCollection[i].GetParticleName()== "neutron") || (stepCollection[i].GetParticleName()== "gamma")  )
-              &&  (  (stepCollection[i].GetVolumeName()=="DetVol") || (baseName=="ScatScintillator")|| (baseName=="LiquidScintillator") ) )
+              &&  (  (stepCollection[i].GetVolumeName()=="DetVol") || (baseName=="ScatScintillator") || (baseName=="LiquidScintillator") ) )
               ||  (stepCollection[i].GetProcessName()=="newEvent") ){
 
                 eventID = stepCollection[i].GetEventID();

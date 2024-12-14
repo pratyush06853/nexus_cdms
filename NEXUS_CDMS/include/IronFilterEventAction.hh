@@ -61,9 +61,9 @@ private:
     int parentID;
 
     int max_char_len;
-    char particle_name[16];
-    char volume_name[25];
-    char process_name[16];
+    char particle_name[70];
+    char volume_name[70];
+    char process_name[70];
 
     G4String tmp_particle_name;
     G4String tmp_volume_name;
