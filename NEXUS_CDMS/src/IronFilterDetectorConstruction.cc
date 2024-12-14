@@ -644,30 +644,30 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::Construct()
 //   always return the physical World
 //
 
-G4PhysicalVolumeStore* pVolumeStore = G4PhysicalVolumeStore::GetInstance();
+//G4PhysicalVolumeStore* pVolumeStore = G4PhysicalVolumeStore::GetInstance();
 
-for (auto pVolume : *pVolumeStore) {
-  G4cout << "Physical Volume: " << pVolume->GetName()
-         << ", Mother Volume: "
-         << (pVolume->GetMotherLogical() ? pVolume->GetMotherLogical()->GetName() : "None")
-         << G4endl;
-}
+//for (auto pVolume : *pVolumeStore) {
+//  G4cout << "Physical Volume: " << pVolume->GetName()
+//         << ", Mother Volume: "
+//         << (pVolume->GetMotherLogical() ? pVolume->GetMotherLogical()->GetName() : "None")
+//         << G4endl;
+//}
 
 // Access the logical volume store
-G4LogicalVolumeStore* lVolumeStore = G4LogicalVolumeStore::GetInstance();
+//G4LogicalVolumeStore* lVolumeStore = G4LogicalVolumeStore::GetInstance();
 
 // Iterate over all logical volumes
-for (auto lVolume : *lVolumeStore) {
-    // Get the associated solid and material
-    G4VSolid* solid = lVolume->GetSolid();
-    G4Material* material = lVolume->GetMaterial();
+//for (auto lVolume : *lVolumeStore) {
+//    // Get the associated solid and material
+//    G4VSolid* solid = lVolume->GetSolid();
+//    G4Material* material = lVolume->GetMaterial();
 
     // Print the solid name and material name
-    if (solid && material) {
-        G4cout << "Solid: " << solid->GetName()
-               << ", Material: " << material->GetName() << G4endl;
-    }
-}
+//    if (solid && material) {
+//        G4cout << "Solid: " << solid->GetName()
+//               << ", Material: " << material->GetName() << G4endl;
+//    }
+//}
 
 
   return physWorld;

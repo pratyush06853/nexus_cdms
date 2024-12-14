@@ -48,7 +48,7 @@ IronFilterEventAction::IronFilterEventAction( IronFilterRunAction* input_run_act
    tmp_volume_name(""),
    tmp_process_name("")
 {
-    max_char_len = 25;
+    max_char_len = 70;
 }
 
 
