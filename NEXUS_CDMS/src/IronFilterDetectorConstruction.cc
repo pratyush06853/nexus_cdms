@@ -96,7 +96,7 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   //fUseAltTarget(FALSE),
   fUseAltTarget(TRUE),
   //fAltTargetSize(10.0,10.0,4.0),
-  fAltTargetSize(50.0,50.0,33.0),
+  fAltTargetSize(1.963*cm,1.957*cm,1.555*cm),
   fAltTargetPosition(0.0,0.0,-66.0),
   fTargetTemperature(0.05 * kelvin),
   fUseFloor(TRUE),
@@ -131,14 +131,15 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   //fScatMinRadius(10.0 * cm),
   fScatMinRadius(15.0 * cm),
   //fNumScatScint(10),
-  fNumScatScint(14),
+  fNumScatScint(1),
   fParametrization(TRUE)
 {
    fMessenger = new IronFilterDetectorMessenger(this);
    CustomMaterials();
    SetWallMaterial("G4_Pb");
    SetDumpMaterial("POLY_LUMBER");
-   SetTargetMaterial("G4_Ge_cryo");
+   //SetTargetMaterial("G4_Ge_cryo");
+   SetTargetMaterial("G4_Sn_cryo");
    //SetTargetMaterial("G4_Galactic");
    //SetCannonMaterial("Borated_Poly");
    SetCannonMaterial("EJ_301_Material");
@@ -408,7 +409,7 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::Construct()
 
          // Place the cylinder at the new position (same x, y as barrel, custom z)
          //cylinder's z-coordinate (you choose this value)
-         G4double customZ = 300.0*cm;
+         G4double customZ = 460.0*cm;
          G4ThreeVector cylinderPos2(beamDumpPos.x(), beamDumpPos.y(), beamDumpPos.z()+customZ);
          // Create the logical volume for the cylinder
          G4LogicalVolume* cylinderLog2 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder2");
@@ -427,7 +428,7 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::Construct()
          // Place the cylinder at the new position (same x, y as barrel, custom z)
 
          //cylinder's z-coordinate (you choose this value)
-          customZ = 200.0*cm;
+          customZ = 350.0*cm;
           G4ThreeVector cylinderPos3(beamDumpPos.x(), beamDumpPos.y(), beamDumpPos.z()+customZ);
           // Create the logical volume for the cylinder
           G4LogicalVolume* cylinderLog3 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder3");
@@ -1672,7 +1673,7 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructLeanShield(){
 //
        G4ThreeVector borePos(0.0,0.0,0.0);
        //new G4PVPlacement(0,borePos,boreVol,boreVol->GetName(),
-      //   barrelVol,false,0,checkOverlaps);
+       //  barrelVol,false,0,checkOverlaps);
      }
 //
 //     G4ThreeVector barrelPos = generPosShield;
@@ -1796,8 +1797,8 @@ void IronFilterDetectorConstruction::CustomMaterials(){
 //
 //  Make cryogenic materials for targets
 //
-   const int numCryoMat = 2;
-   const char * cryoNames[numCryoMat] = {"G4_Ge","G4_Si"};
+   const int numCryoMat = 3;
+   const char * cryoNames[numCryoMat] = {"G4_Ge","G4_Si","G4_Sn"};
    for(int mat = 0; mat < numCryoMat; mat++){
      strcpy(name,cryoNames[mat]);
      strcat(name,"_cryo");
@@ -3082,52 +3083,53 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructCryostat(){
 
     if(fUseAltTarget){
       G4cout << "Implementing the alternative detector - " << G4endl;
-      sprintf(lineOutput,formDimOut,"Alt Target",
-	fAltTargetSize.x(),fAltTargetSize.y(),fAltTargetSize.z());
-      G4cout << lineOutput;
-      sprintf(lineOutput,formPosOut,"Alt Target",
-	fAltTargetPosition.x(),fAltTargetPosition.y(),fAltTargetPosition.z());
-      G4cout << lineOutput;
-      //double detRad = 0.5 * sqrt(fAltTargetSize.x() * fAltTargetSize.x() +
-      //                           fAltTargetSize.z() * fAltTargetSize.z());
-      double detRad =  fAltTargetSize.x();
-      //double detectorTubeIncLength = 0.5 * fAltTargetSize.y();
-      double detectorTubeIncLength = 0.5 * fAltTargetSize.z();
-      double detectorZOffset = -5.0 * cm;
-      G4Tubs * detectorTubsInc =
-        new G4Tubs("DetTubsInc",0.0,detRad + 0.1*mm,
-	  detectorTubeIncLength + 0.1 * mm,0.0,CLHEP::twopi);
-      detectorTubsInc->DumpInfo();
-      G4LogicalVolume * detectorVolInc =
-        new G4LogicalVolume(detectorTubsInc,vacuum,"DetVolInc");
-      //G4Box * detectorBox =
-      //  new G4Box("DetBox",0.5 * fAltTargetSize.x(),
-	     //              0.5 * fAltTargetSize.y(),0.5 * fAltTargetSize.z());
-      G4Tubs * detectorBox =
-        new G4Tubs("DetBox",0.0,
-                     fAltTargetSize.y(),0.5 * fAltTargetSize.z(),0.0,CLHEP::twopi);
-      G4LogicalVolume * detectorVol =
-        new G4LogicalVolume(detectorBox,fTargetMaterial,"DetVol");
-      G4ThreeVector detPos = origin;
-      sprintf(lineOutput,formPosOut,detectorVol->GetName().c_str(),
-        detPos.x(),detPos.y(),detPos.z());
-      G4cout << lineOutput;
-      G4RotationMatrix * xRot = new G4RotationMatrix;
-      xRot->rotateX(CLHEP::halfpi*rad);
-       ////new G4PVPlacement(xRot,detPos,detectorVol,detectorVol->GetName(),
-       ////  detectorVolInc,false,0,checkOverlaps);
-       //new G4PVPlacement(0,detPos,detectorVol,detectorVol->GetName(),
-        //   detectorVolInc,false,0,checkOverlaps);
-      G4ThreeVector detIncPos = plugPos;
-      detIncPos.setZ(plugPos.z() - plugCuHalfHeight - plugDetGap -
-       detectorTubeIncLength + detectorZOffset);
-      detIncPos += fAltTargetPosition;
-      sprintf(lineOutput,formPosOut,detectorVolInc->GetName().c_str(),
-       detIncPos.x(),detIncPos.y(),detIncPos.z());
-      G4cout << lineOutput;
-      sprintf(name,"Det_0");
-      //new G4PVPlacement(0,detIncPos,detectorVolInc,name,
-      //   vacVol,false,0,checkOverlaps);
+           sprintf(lineOutput,formDimOut,"Alt Target",
+     	fAltTargetSize.x(),fAltTargetSize.y(),fAltTargetSize.z());
+           G4cout << lineOutput;
+           sprintf(lineOutput,formPosOut,"Alt Target",
+     	fAltTargetPosition.x(),fAltTargetPosition.y(),fAltTargetPosition.z());
+           G4cout << lineOutput;
+           //double detRad = 0.5 * sqrt(fAltTargetSize.x() * fAltTargetSize.x() +
+           //                           fAltTargetSize.z() * fAltTargetSize.z());
+           double detRad =  fAltTargetSize.x();
+           //double detectorTubeIncLength = 0.5 * fAltTargetSize.y();
+           double detectorTubeIncLength = 0.5 * fAltTargetSize.z();
+           //double detectorZOffset = -5.0 * cm;
+           double detectorZOffset = -6.0 * cm;
+           G4Tubs * detectorTubsInc =
+             new G4Tubs("DetTubsInc",0.0,detRad + 0.1*mm,
+     	  detectorTubeIncLength + 0.1 * mm,0.0,CLHEP::twopi);
+           detectorTubsInc->DumpInfo();
+           G4LogicalVolume * detectorVolInc =
+             new G4LogicalVolume(detectorTubsInc,vacuum,"DetVolInc");
+           //G4Box * detectorBox =
+           //  new G4Box("DetBox",0.5 * fAltTargetSize.x(),
+     	     //              0.5 * fAltTargetSize.y(),0.5 * fAltTargetSize.z());
+           G4Tubs * detectorBox =
+             new G4Tubs("DetBox",0.0,
+                          fAltTargetSize.y(),0.5 * fAltTargetSize.z(),0.0,CLHEP::twopi);
+           G4LogicalVolume * detectorVol =
+             new G4LogicalVolume(detectorBox,fTargetMaterial,"DetVol");
+           G4ThreeVector detPos = origin;
+           sprintf(lineOutput,formPosOut,detectorVol->GetName().c_str(),
+             detPos.x(),detPos.y(),detPos.z());
+           G4cout << lineOutput;
+           G4RotationMatrix * xRot = new G4RotationMatrix;
+           xRot->rotateX(CLHEP::halfpi*rad);
+            //new G4PVPlacement(xRot,detPos,detectorVol,detectorVol->GetName(),
+            //  detectorVolInc,false,0,checkOverlaps);
+            new G4PVPlacement(0,detPos,detectorVol,detectorVol->GetName(),
+                detectorVolInc,false,0,checkOverlaps);
+           G4ThreeVector detIncPos = plugPos;
+           detIncPos.setZ(plugPos.z() - plugCuHalfHeight - plugDetGap -
+            detectorTubeIncLength + detectorZOffset);
+           detIncPos += fAltTargetPosition;
+           sprintf(lineOutput,formPosOut,detectorVolInc->GetName().c_str(),
+            detIncPos.x(),detIncPos.y(),detIncPos.z());
+           G4cout << lineOutput;
+           sprintf(name,"Det_0");
+           new G4PVPlacement(0,detIncPos,detectorVolInc,name,
+              vacVol,false,0,checkOverlaps);
     }
     else{
 
