@@ -3102,12 +3102,12 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructCryostat(){
            detectorTubsInc->DumpInfo();
            G4LogicalVolume * detectorVolInc =
              new G4LogicalVolume(detectorTubsInc,vacuum,"DetVolInc");
-           //G4Box * detectorBox =
-           //  new G4Box("DetBox",0.5 * fAltTargetSize.x(),
-     	     //              0.5 * fAltTargetSize.y(),0.5 * fAltTargetSize.z());
-           G4Tubs * detectorBox =
-             new G4Tubs("DetBox",0.0,
-                          fAltTargetSize.y(),0.5 * fAltTargetSize.z(),0.0,CLHEP::twopi);
+           G4Box * detectorBox =
+             new G4Box("DetBox",0.5 * fAltTargetSize.x(),
+     	                   0.5 * fAltTargetSize.y(),0.5 * fAltTargetSize.z());
+           //G4Tubs * detectorBox =
+          //   new G4Tubs("DetBox",0.0,
+          //                fAltTargetSize.y(),0.5 * fAltTargetSize.z(),0.0,CLHEP::twopi);
            G4LogicalVolume * detectorVol =
              new G4LogicalVolume(detectorBox,fTargetMaterial,"DetVol");
            G4ThreeVector detPos = origin;
