@@ -414,14 +414,14 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::Construct()
          // Create the logical volume for the cylinder
          G4LogicalVolume* cylinderLog2 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder2");
 
-         new G4PVPlacement(rotation,                   // No rotation
-                        cylinderPos2,          // Cylinder's position
-                        cylinderLog2,          // Logical volume
-                        "LiquidScintillator_2",           // Name
-                        interiorEnv,         // Parent volume (same as barrel)
-                        false,                // No boolean operation
-                        0,                    // Copy number
-                        checkOverlaps);       // Overlap check
+         //new G4PVPlacement(rotation,                   // No rotation
+          //              cylinderPos2,          // Cylinder's position
+          //              cylinderLog2,          // Logical volume
+          //              "LiquidScintillator_2",           // Name
+          //              interiorEnv,         // Parent volume (same as barrel)
+          //              false,                // No boolean operation
+          //              0,                    // Copy number
+          //              checkOverlaps);       // Overlap check
          cylinderLog2->SetVisAttributes(att_red);
 
 
@@ -433,14 +433,14 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::Construct()
           // Create the logical volume for the cylinder
           G4LogicalVolume* cylinderLog3 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder3");
 
-          new G4PVPlacement(rotation,                   // No rotation
-                            cylinderPos3,          // Cylinder's position
-                            cylinderLog3,          // Logical volume
-                            "LiquidScintillator_3",           // Name
-                            interiorEnv,         // Parent volume (same as barrel)
-                            false,                // No boolean operation
-                            0,                    // Copy number
-                            checkOverlaps);       // Overlap check
+          //new G4PVPlacement(rotation,                   // No rotation
+          //                  cylinderPos3,          // Cylinder's position
+          //                  cylinderLog3,          // Logical volume
+          //                  "LiquidScintillator_3",           // Name
+          //                  interiorEnv,         // Parent volume (same as barrel)
+          //                  false,                // No boolean operation
+          //                  0,                    // Copy number
+          //                  checkOverlaps);       // Overlap check
           cylinderLog3->SetVisAttributes(att_red);
 
 
@@ -645,30 +645,30 @@ G4VPhysicalVolume* IronFilterDetectorConstruction::Construct()
 //   always return the physical World
 //
 
-//G4PhysicalVolumeStore* pVolumeStore = G4PhysicalVolumeStore::GetInstance();
+G4PhysicalVolumeStore* pVolumeStore = G4PhysicalVolumeStore::GetInstance();
 
-//for (auto pVolume : *pVolumeStore) {
-//  G4cout << "Physical Volume: " << pVolume->GetName()
-//         << ", Mother Volume: "
-//         << (pVolume->GetMotherLogical() ? pVolume->GetMotherLogical()->GetName() : "None")
-//         << G4endl;
-//}
+for (auto pVolume : *pVolumeStore) {
+  G4cout << "Physical Volume: " << pVolume->GetName()
+         << ", Mother Volume: "
+         << (pVolume->GetMotherLogical() ? pVolume->GetMotherLogical()->GetName() : "None")
+         << G4endl;
+}
 
 // Access the logical volume store
-//G4LogicalVolumeStore* lVolumeStore = G4LogicalVolumeStore::GetInstance();
+G4LogicalVolumeStore* lVolumeStore = G4LogicalVolumeStore::GetInstance();
 
 // Iterate over all logical volumes
-//for (auto lVolume : *lVolumeStore) {
-//    // Get the associated solid and material
-//    G4VSolid* solid = lVolume->GetSolid();
-//    G4Material* material = lVolume->GetMaterial();
+for (auto lVolume : *lVolumeStore) {
+    // Get the associated solid and material
+    G4VSolid* solid = lVolume->GetSolid();
+    G4Material* material = lVolume->GetMaterial();
 
     // Print the solid name and material name
-//    if (solid && material) {
-//        G4cout << "Solid: " << solid->GetName()
-//               << ", Material: " << material->GetName() << G4endl;
-//    }
-//}
+    if (solid && material) {
+        G4cout << "Solid: " << solid->GetName()
+               << ", Material: " << material->GetName() << G4endl;
+    }
+}
 
 
   return physWorld;
@@ -1672,8 +1672,8 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructLeanShield(){
        boreVol->SetVisAttributes(att_white);
 //
        G4ThreeVector borePos(0.0,0.0,0.0);
-       //new G4PVPlacement(0,borePos,boreVol,boreVol->GetName(),
-       //  barrelVol,false,0,checkOverlaps);
+       new G4PVPlacement(0,borePos,boreVol,boreVol->GetName(),
+         barrelVol,false,0,checkOverlaps);
      }
 //
 //     G4ThreeVector barrelPos = generPosShield;
@@ -1683,8 +1683,8 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructLeanShield(){
      sprintf(lineOutput,formPosOut,barrelVol->GetName().c_str(),
        barrelPos.x(),barrelPos.y(),barrelPos.z());
      G4cout << lineOutput;
-     //new G4PVPlacement(0,barrelPos,barrelVol,barrelVol->GetName(),
-     //     shieldVolume,false,0,checkOverlaps);
+     new G4PVPlacement(0,barrelPos,barrelVol,barrelVol->GetName(),
+          shieldVolume,false,0,checkOverlaps);
 
 
      // Define cylinder dimensions
@@ -1712,14 +1712,14 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructLeanShield(){
      G4LogicalVolume* cylinderLog1 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder1");
 
      // Place the cylinder at the new position (same x, y as barrel, custom z)
-     new G4PVPlacement(rotation,                   // No rotation
-                     cylinderPos1,          // Cylinder's position
-                     cylinderLog1,          // Logical volume
-                     "LiquidScintillator_1",           // Name
-                     shieldVolume,         // Parent volume (same as barrel)
-                     false,                // No boolean operation
-                     0,                    // Copy number
-                     checkOverlaps);       // Overlap check
+     //new G4PVPlacement(rotation,                   // No rotation
+    //                 cylinderPos1,          // Cylinder's position
+    //                 cylinderLog1,          // Logical volume
+    //                 "LiquidScintillator_1",           // Name
+    //                 shieldVolume,         // Parent volume (same as barrel)
+    //                 false,                // No boolean operation
+    //                 0,                    // Copy number
+    //                 checkOverlaps);       // Overlap check
 
       cylinderLog1->SetVisAttributes(att_red);
 
