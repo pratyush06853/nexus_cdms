@@ -271,15 +271,16 @@ void IronFilterEventAction::EndOfEventAction(const G4Event* event){
                 global_time = stepCollection[i].GetGlobalTime();
 
 
-                if (stepCollection[i].GetProcessName() != "neutronInelastic") {
+                if ((process_name != std::string("neutronInelastic")) &&
+                    (process_name != std::string("initStep")) ) {
 
-                  //G4cout<<eventID<<"   "<<trackID
+                  //G4cout<<eventID<<trackID
                   //                          <<"  "<<stepID
                   //                          <<"  "<<particle_name
                   //                          <<"  "<<tmp_volume_name
                   //                          <<"  "<<Eki
                   //                          <<"   "<<Ekf
-                  //                          <<"   "<<global_time/1000<<G4endl; //time in µs
+                  //                          <<"   "<<process_name<<G4endl; //time in µs
                   data_tree->Fill();
                 }
 

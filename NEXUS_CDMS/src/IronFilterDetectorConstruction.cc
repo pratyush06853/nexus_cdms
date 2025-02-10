@@ -82,7 +82,7 @@ IronFilterDetectorConstruction::IronFilterDetectorConstruction()
   fDumpDepth(30.0*cm),
   fDumpRadius(30.0*cm),
   fDumpMaterial(NULL),
-  fCollRadius(0.5*cm),
+  fCollRadius(0.1*cm), //0.5
   fShieldHoleRadius(1.4*cm),
   fBeamPipeWall(0.29*cm),
   fBeamPipeClear(0.1*cm),
