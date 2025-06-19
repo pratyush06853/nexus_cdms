@@ -1683,8 +1683,8 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructLeanShield(){
      sprintf(lineOutput,formPosOut,barrelVol->GetName().c_str(),
        barrelPos.x(),barrelPos.y(),barrelPos.z());
      G4cout << lineOutput;
-     new G4PVPlacement(0,barrelPos,barrelVol,barrelVol->GetName(),
-          shieldVolume,false,0,checkOverlaps);
+     //new G4PVPlacement(0,barrelPos,barrelVol,barrelVol->GetName(),
+    //      shieldVolume,false,0,checkOverlaps);
 
 
      // Define cylinder dimensions
@@ -1706,22 +1706,56 @@ G4LogicalVolume* IronFilterDetectorConstruction::ConstructLeanShield(){
      G4Tubs* cylinderSolid = new G4Tubs("Cylinder", innerRadius, outerRadius, halfHeight, startAngle, spanningAngle);
 
      // Create a new position for the cylinder (same x, y as barrel, custom z)
-     G4double customZ = 5.0*cm;
+     G4double customZ = 30.0*cm;
      G4ThreeVector cylinderPos1(barrelPos.x(),barrelPos.y(),barrelPos.z()+customZ);
      // Create the logical volume for the cylinder
      G4LogicalVolume* cylinderLog1 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder1");
 
-     // Place the cylinder at the new position (same x, y as barrel, custom z)
-     //new G4PVPlacement(rotation,                   // No rotation
-    //                 cylinderPos1,          // Cylinder's position
-    //                 cylinderLog1,          // Logical volume
-    //                 "LiquidScintillator_1",           // Name
-    //                 shieldVolume,         // Parent volume (same as barrel)
-    //                 false,                // No boolean operation
-    //                 0,                    // Copy number
-    //                 checkOverlaps);       // Overlap check
+     //Place the cylinder at the new position (same x, y as barrel, custom z)
+     new G4PVPlacement(rotation,                   // No rotation
+                     cylinderPos1,          // Cylinder's position
+                     cylinderLog1,          // Logical volume
+                     "LiquidScintillator_1",           // Name
+                     shieldVolume,         // Parent volume (same as barrel)
+                     false,                // No boolean operation
+                     0,                    // Copy number
+                     checkOverlaps);       // Overlap check
 
       cylinderLog1->SetVisAttributes(att_red);
+
+
+      G4double customX = 10.0*cm;
+      G4ThreeVector cylinderPos2(barrelPos.x()+customX ,barrelPos.y(),barrelPos.z()+customZ);
+      // Create the logical volume for the cylinder
+      G4LogicalVolume* cylinderLog2 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder2");
+
+      new G4PVPlacement(rotation,                   // No rotation
+                     cylinderPos2,          // Cylinder's position
+                     cylinderLog2,          // Logical volume
+                     "LiquidScintillator_2",           // Name
+                     shieldVolume,         // Parent volume (same as barrel)
+                     false,                // No boolean operation
+                     0,                    // Copy number
+                     checkOverlaps);       // Overlap check
+      cylinderLog2->SetVisAttributes(att_red);
+
+
+      G4ThreeVector cylinderPos3(barrelPos.x()-customX ,barrelPos.y(),barrelPos.z()+customZ);
+      // Create the logical volume for the cylinder
+      G4LogicalVolume* cylinderLog3 = new G4LogicalVolume(cylinderSolid, fCannonMaterial, "Cylinder3");
+
+      new G4PVPlacement(rotation,                   // No rotation
+                     cylinderPos3,          // Cylinder's position
+                     cylinderLog3,          // Logical volume
+                     "LiquidScintillator_3",           // Name
+                     shieldVolume,         // Parent volume (same as barrel)
+                     false,                // No boolean operation
+                     0,                    // Copy number
+                     checkOverlaps);       // Overlap check
+      cylinderLog3->SetVisAttributes(att_red);
+
+
+
 
    }
 
@@ -1788,8 +1822,8 @@ void IronFilterDetectorConstruction::CustomMaterials(){
      G4Element* el_H = G4NistManager::Instance()->FindOrBuildElement("H");  // Hydrogen
 
      // Add the number of atoms for each element in the material
-     EJ_301->AddElement(el_C, 398);  // 398 carbon atoms
-     EJ_301->AddElement(el_H, 482);  // 482 hydrogen atoms
+     EJ_301->AddElement(el_H , 0.122);  // 12.2% Hydrogen by mass
+     EJ_301->AddElement(el_C, 0.878);  // 87.8% Carbon by mass
 
      // Output the material properties to the console
      G4cout << EJ_301;

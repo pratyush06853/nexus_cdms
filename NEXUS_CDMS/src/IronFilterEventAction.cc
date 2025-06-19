@@ -151,8 +151,8 @@ void IronFilterEventAction::EndOfEventAction(const G4Event* event){
             tmp_particle_name = stepCollection[i].GetParticleName();
 
             //G4cout<<stepCollection[i].GetEventID()<<"   "<<stepCollection[i].GetTrackID()
-            //                          <<"  "<<stepCollection[i].GetStepID()
-            //                          <<"  "<<tmp_particle_name
+            //                        <<"  "<<stepCollection[i].GetStepID()
+            //                          <<"  "<<tmp_particle_name<<"  "<<edep
             //                          <<"  "<<tmp_volume_name<<G4endl;
 
 
@@ -202,13 +202,13 @@ void IronFilterEventAction::EndOfEventAction(const G4Event* event){
           if( (tmp_volume_name=="DetVol")&& edep!=0){
                 if_crytsal = 1;
           }
-          if( (tmp_volume_name=="Liquid_Scintillator_1")&& edep!=0){
+          if( (tmp_volume_name=="LiquidScintillator_1")&& edep!=0){
                 if_LS_1 = 1;
           }
-          if( (tmp_volume_name=="Liquid_Scintillator_2")&& edep!=0){
+          if( (tmp_volume_name=="LiquidScintillator_2")&& edep!=0){
                 if_LS_2 = 1;
           }
-          if( (tmp_volume_name=="Liquid_Scintillator_3")&& edep!=0){
+          if( (tmp_volume_name=="LiquidScintillator_3")&& edep!=0){
                 if_LS_3 = 1;
           }
       }
@@ -233,9 +233,11 @@ void IronFilterEventAction::EndOfEventAction(const G4Event* event){
                 baseName = volumeName.substr(0, underscorePos);
               }
 
-              if( ((  (stepCollection[i].GetParticleName()== "neutron") || (stepCollection[i].GetParticleName()== "gamma")  )
-              &&  (  (stepCollection[i].GetVolumeName()=="DetVol") || (baseName=="ScatScintillator") || (baseName=="LiquidScintillator") ) )
-              ||  (stepCollection[i].GetProcessName()=="newEvent") ){
+              //if( ((  (stepCollection[i].GetParticleName()== "neutron") || (stepCollection[i].GetParticleName()== "gamma")  )
+              //&&  (  (stepCollection[i].GetVolumeName()=="DetVol") || (baseName=="ScatScintillator") || (baseName=="LiquidScintillator") ) )
+              //||  (stepCollection[i].GetProcessName()=="newEvent") ){
+
+              if ( (baseName=="LiquidScintillator")  || (stepCollection[i].GetProcessName()=="newEvent") ) {
 
                 eventID = stepCollection[i].GetEventID();
                 trackID = stepCollection[i].GetTrackID();
@@ -271,9 +273,9 @@ void IronFilterEventAction::EndOfEventAction(const G4Event* event){
                 global_time = stepCollection[i].GetGlobalTime();
 
 
-                if ((process_name != std::string("neutronInelastic")) &&
-                    (process_name != std::string("initStep")) ) {
-
+                //if ((process_name != std::string("neutronInelastic")) &&
+                //    (process_name != std::string("initStep")) ) {
+                  if (edep*1000 !=0 || (stepCollection[i].GetProcessName()=="newEvent") ) {
                   //G4cout<<eventID<<trackID
                   //                          <<"  "<<stepID
                   //                          <<"  "<<particle_name

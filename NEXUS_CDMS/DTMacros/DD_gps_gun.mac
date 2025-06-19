@@ -1,13 +1,13 @@
 /run/initialize
 /tracking/verbose 0
 
-/random/setSeeds 3222250 8334967
+/random/setSeeds 356223 8334967
 
 /process/list
 /run/printProgress 10000
 
 # Set the file name
-/filename/setFilename Ge_One_BackingDetector_14_350.root
+/filename/setFilename Three_LS.root
 
 /gps/particle neutron
 
@@ -15,6 +15,7 @@
 
 /gps/position -13.879 -39.779 269.514 cm
 /gps/ang/type iso
+#/gps/direction 0 0 -1
 
 
 
